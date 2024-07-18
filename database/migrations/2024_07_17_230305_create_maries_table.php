@@ -13,10 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('divisions', function (Blueprint $table) {
+        Schema::create('maries', function (Blueprint $table) {
             $table->id();
-            $table->string('description');
-            $table->string('abbreviation');
+            $table->string('nom');
+            $table->string('prenom');
+            $table->date('date_naissance');
+            $table->date('date_mariage');
+            $table->integer('profession');
+            $table->foreignId('id_user')->constrained('users');
             $table->timestamps();
         });
     }
@@ -28,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('divisions');
+        Schema::dropIfExists('maries');
     }
 };

@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('divisions', function (Blueprint $table) {
-            $table->id();
-            $table->string('description');
-            $table->string('abbreviation');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreignId('id_role')->nullable()->constrained('roles');
         });
     }
 
@@ -28,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('divisions');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['id_roles']);
+        });
     }
 };

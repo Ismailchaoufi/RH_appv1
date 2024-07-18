@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Demande;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class ProfileController extends Controller
+class GestionDemandeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +16,11 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        return view('RH.Profile.index', compact('user'));
+        $demandes = Demande::where('status','!=','1')->get();
+     
+
+        return view('RH.demandes.listdemandes',compact('demandes'));
+
     }
 
     /**

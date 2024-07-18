@@ -1,8 +1,12 @@
 <?php
 
 use App\Http\Controllers\Admin\FrontendControllerAdmin;
-use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\GestionDemandeController;
+use App\Http\Controllers\Admin\GestionUserController;
+use App\Http\Controllers\Admin\NotificationController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Fonct\FrontendController;
+use App\Http\Controllers\ProfileController as ControllersProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -32,7 +36,10 @@ Route::group(['prefix'=>'admin','middleware' => ['auth','isAdmin']], function ()
     
 
     Route::get('/dashboard', [FrontendControllerAdmin::class,'index']);
-    Route::resource('profile', ProfileController::class);
+    Route::resource('profileadmin', ProfileController::class);
+    Route::resource('users', GestionUserController::class);
+    Route::resource('demandes', GestionDemandeController::class);
+    Route::resource('notifications', NotificationController::class);
  });
 
  Route::group(['prefix'=>'fonctionnaire','middleware' => ['auth','isFonctionnaire']], function () {

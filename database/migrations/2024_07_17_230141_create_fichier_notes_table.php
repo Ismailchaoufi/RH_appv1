@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('divisions', function (Blueprint $table) {
+        Schema::create('fichier_notes', function (Blueprint $table) {
             $table->id();
-            $table->string('description');
-            $table->string('abbreviation');
+            $table->string('fichier');
+            $table->date('date_fichier');
+            
             $table->timestamps();
+            $table->foreignId('id_user')->constrained('users');
         });
     }
 
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('divisions');
+        Schema::dropIfExists('fichier_notes');
     }
 };

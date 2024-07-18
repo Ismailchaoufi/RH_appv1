@@ -15,8 +15,10 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('prenom');
+            $table->string('nomFr')->nullable();
+            $table->string('nomAr')->nullable();
+            $table->string('prenomFr')->nullable();
+            $table->string('prenomAr')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
@@ -24,8 +26,21 @@ return new class extends Migration
             $table->bigInteger('role')->default('0');
             $table->rememberToken();
             $table->timestamps();
+            // Additional fields from fonctionnaire
+
+            $table->string('nomPereFr')->nullable();
+            $table->string('nomPereAr')->nullable();
+            $table->string('nomMereFr')->nullable();
+            $table->string('nomMereAr')->nullable();
+            $table->string('lieu_naissance')->nullable();
+            $table->date('date_naissance')->nullable();
+            $table->string('CINE')->nullable();
+            $table->string('filiere')->nullable();
+
+
 
         });
+
     }
 
     /**

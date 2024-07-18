@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('divisions', function (Blueprint $table) {
+        Schema::create('status_demandes', function (Blueprint $table) {
             $table->id();
-            $table->string('description');
-            $table->string('abbreviation');
+            $table->string('status_demande'); // e.g., 'pending', 'accepted', 'refused'
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('divisions');
+        Schema::dropIfExists('status_demandes');
     }
 };
