@@ -125,12 +125,12 @@
         <div class="collapse" id="submenuDemandes">
             <ul class="nav nav-sm flex-column">
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="">
+                    <a class="nav-link text-white" href="{{route('demandes.create')}}">
                         <i class="material-icons me-2">note_add</i> Ajouter Demande
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="">
+                    <a class="nav-link text-white" href="{{route('demandes.index')}}">
                         <i class="material-icons me-2">list</i> Liste des Demandes
                     </a>
                 </li>

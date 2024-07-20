@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\FrontendControllerAdmin;
 use App\Http\Controllers\Admin\GestionDemandeController;
 use App\Http\Controllers\Admin\GestionUserController;
 use App\Http\Controllers\Admin\NotificationController;
+use App\Http\Controllers\Fonct\DemandeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Fonct\FrontendController;
 use App\Http\Controllers\ProfileController as ControllersProfileController;
@@ -40,6 +41,7 @@ Route::group(['prefix'=>'admin','middleware' => ['auth','isAdmin']], function ()
     Route::resource('users', GestionUserController::class);
     Route::resource('demandes', GestionDemandeController::class);
     Route::resource('notifications', NotificationController::class);
+    Route::post('/notifications/mark-as-read/{id}', [NotificationController::class, 'markAsRead']);
  });
 
  Route::group(['prefix'=>'fonctionnaire','middleware' => ['auth','isFonctionnaire']], function () {
@@ -47,6 +49,7 @@ Route::group(['prefix'=>'admin','middleware' => ['auth','isAdmin']], function ()
 
     Route::get('/dashboard', [FrontendController::class,'index']);
     Route::resource('profile', ProfileController::class);
+    Route::resource('demandes', DemandeController::class);
 
  });
 

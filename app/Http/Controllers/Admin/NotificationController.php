@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Demande;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Support\Facades\Auth;
 
 class NotificationController extends Controller
 {
@@ -15,10 +17,7 @@ class NotificationController extends Controller
      */
     public function index()
     {
-        $demandes = Demande::where('status','=','1')->get();
-     
-
-        return view('RH.notifications.listdemandespending',compact('demandes'));
+       
     }
 
     /**
@@ -50,7 +49,31 @@ class NotificationController extends Controller
      */
     public function show($id)
     {
-        //
+        // Récupérer la notification par ID directement depuis la table des notifications
+        $notification = DatabaseNotification::where('id', $id)
+                                            ->where('notifiable_id', Auth::id())
+                                            ->where('notifiable_type', get_class(Auth::user()))
+                                            ->first();
+
+        if (!$notification) {
+            return redirect()->route('notifications.index')->withErrors('Notification not found.');
+        }
+
+        // Fetch the request details based on the notification
+        // Extraire les données de la notification
+        $data = $notification->data;
+        $demande = isset($data['demande_id']) ? Demande::find($data['demande_id']) : null;
+
+
+        if (!$demande) {
+
+            return redirect()->route('notifications.index')->withErrors('Request not found.');
+            
+        }
+         // Mark the notification as read
+         $notification->markAsRead();
+
+        return view('RH.notifications.show', compact('demande','notification'));
     }
 
     /**
@@ -86,4 +109,22 @@ class NotificationController extends Controller
     {
         //
     }
+
+    //mark as read
+
+
+    public function markAsRead($id)
+{
+    $notification = DatabaseNotification::where('id', $id)
+                                        ->where('notifiable_id', Auth::id())
+                                        ->where('notifiable_type', get_class(Auth::user()))
+                                        ->first();
+
+    if ($notification) {
+        $notification->markAsRead();
+        return response()->json(['success' => true]);
+    }
+
+    return response()->json(['success' => false], 404);
+}
 }

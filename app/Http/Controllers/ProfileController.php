@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Demande;
+use App\Models\TypeDemande;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,7 +29,7 @@ class ProfileController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -48,7 +51,10 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
-        //
+        $demande=Demande::find($id);
+        $userid=$demande->id_user;
+        $user=User::find($userid);
+        return view('RH.notifications.verifyprofile', compact('user','demande'));
     }
 
     /**

@@ -10,8 +10,9 @@ class Demande extends Model
     use HasFactory;
 
     protected $fillable = [
-        'date_demande', 'nbr_jours', 'date_fin', 'id_user', 'id_typeDemande', 'id_status'
+         'nbr_jours', 'id_user', 'id_typeDemande', 'id_status'
     ];
+    protected $dates = ['date_debut', 'date_fin'];
 
     public function user()
     {
